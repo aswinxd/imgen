@@ -2,9 +2,9 @@ import requests
 from pyrogram import Client, filters
 
 # Replace these with your own values
-API_ID = 'your_api_id'
-API_HASH = 'your_api_hash'
-BOT_TOKEN = 'your_bot_token'
+API_ID = '12799559'
+API_HASH = '077254e69d93d08357f25bb5f4504580'
+BOT_TOKEN = '6721122074:AAG-rzdsXUm9HP4BHXod-jclqukFmIw2CY8'
 IMGGEN_API_URL = 'https://api.imggen.com/v1/generate'
 
 app = Client("imggen_bot", api_id=API_ID, api_hash=API_HASH, bot_token=BOT_TOKEN)
