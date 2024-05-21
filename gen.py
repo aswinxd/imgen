@@ -9,11 +9,11 @@ IMGGEN_API_URL = 'https://api.imggen.com/v1/generate'
 
 app = Client("imggen_bot", api_id=API_ID, api_hash=API_HASH, bot_token=BOT_TOKEN)
 
-@app.on_message(filters.command("start"))
+@app.on_message(filters.command(["start"]))
 async def start(client, message):
     await message.reply("Hello! Send me a text prompt and I will generate an image for you using ImgGen AI.")
 
-@app.on_message(filters.text & filters.command)
+@app.on_message(filters.text & ~filters.command(["start"]))
 async def generate_image(client, message):
     prompt = message.text
     response = requests.post(IMGGEN_API_URL, json={"prompt": prompt})
