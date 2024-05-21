@@ -13,7 +13,7 @@ app = Client("imggen_bot", api_id=API_ID, api_hash=API_HASH, bot_token=BOT_TOKEN
 async def start(client, message):
     await message.reply("Hello! Send me a text prompt and I will generate an image for you using ImgGen AI.")
 
-@app.on_message(filters.text & ~filters.command)
+@app.on_message(filters.text & filters.command)
 async def generate_image(client, message):
     prompt = message.text
     response = requests.post(IMGGEN_API_URL, json={"prompt": prompt})
