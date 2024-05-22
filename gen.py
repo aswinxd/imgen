@@ -10,10 +10,6 @@ DEEPAI_API_URL = 'https://api.deepai.org/api/text2img'
 
 app = Client("imggen_bot", api_id=API_ID, api_hash=API_HASH, bot_token=BOT_TOKEN)
 
-@app.on_message(filters.command(["start"]))
-async def start(client, message):
-    await message.reply("Hello! Send me a text prompt and I will generate an image for you using DeepAI.")
-
 @app.on_message(filters.text & ~filters.command(["start"]))
 async def generate_image(client, message):
     prompt = message.text
@@ -24,12 +20,14 @@ async def generate_image(client, message):
     )
     
     if response.status_code == 200:
-        image_url = response.json().get("output_url")
+        response_data = response.json()
+        print("Response Data:", response_data)  # Log the response data for debugging
+        image_url = response_data.get("output_url")
         if image_url:
             await message.reply_photo(photo=image_url, caption="Here is your generated image!")
         else:
             await message.reply("Sorry, I couldn't generate an image. Please try again.")
     else:
+        print("Error Response:", response.status_code, response.text)  # Log the error response for debugging
         await message.reply("There was an error with the image generation service. Please try again later.")
-
 app.run()
